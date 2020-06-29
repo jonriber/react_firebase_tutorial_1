@@ -1,4 +1,4 @@
-import {firebaseDatabase} from '../firebaseUtils';
+import {firebaseDatabase,firebaseAuth} from '../firebaseUtils';
 
 class FirebaseService {
     static getDataList = (nodePath,callback, size = 10) => {
@@ -44,7 +44,30 @@ class FirebaseService {
             callback(newData);
         });
     };
+
+    //using firebase authentication
+    //creating methods
+    static createUser = (email,password) => {
+        return firebaseAuth.createUserWithEmailAndPassword(email,password);
+    };
     
+    static login = (email,password) => {
+        return firebaseAuth.signInWithEmailAndPassword(email,password);
+    };
+
+    static logout = () => {
+        return firebaseAuth.signOut();
+    };
+
+    static onAuthChange = (callbackLogin, callbackLogout) => {
+        firebaseAuth.onAuthStateChanged(authUser => {
+            if (!authUser) {
+                callbackLogout(authUser);
+            } else {
+                callbackLogin(authUser);
+            }
+        });
+    };
 }
 
 export default FirebaseService;

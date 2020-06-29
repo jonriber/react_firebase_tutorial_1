@@ -1,3 +1,4 @@
+//importing components and modules
 import React,{Component} from 'react';
 import './App.css';
 import {
@@ -15,10 +16,11 @@ import DataTable  from './DataTable';
 import Welcome from './Welcome';
 import TopBar from './TopBar';
 import Add from './Add';
+import Login from './Login';
 import FirebaseService from '../util/services/FirebaseService'
 import { Route } from 'react-router-dom';
 import {urls, privateUrls} from '../util/urlUtils';
-// import { lightGreen } from '@material-ui/core/colors';
+import {login,logout} from '../actions/actionCreator';
 
 const theme = createMuiTheme({
   palette: {
@@ -32,9 +34,15 @@ class App extends Component {
   };
 
   componentDidMount() {
+    FirebaseService.onAuthChange(
+      (authUser) => this.props.login(authUser),
+      () => this.props.logout()
+    );
+
     FirebaseService.getDataList('atletas',(dataReceived) =>
     this.setState({data: dataReceived}))
   }
+
   render() {
   
       return (
@@ -52,15 +60,23 @@ class App extends Component {
             </TopBar>
             <Card variant='outlined'style={{paddingTop:'50px'}}>
               <CardContent>
+                {/* system routes */}
                 <Route exact path={urls.home.path} render={(props) => <Welcome {...props}/>}/>
                 <Route exact path={urls.data.path} render={(props) => <DataTable {...props} data={this.state.data}/>}/>
                 <Route exact path={urls.add.path} render={(props) => <Add {...props}/>}/>
                 <Route exact path={privateUrls.edit.path} render={(props) => <Add {...props} />}/>
+                <Route exact path={urls.login.path} render={(props) => <Login {...props}/>}/>
               </CardContent>
             </Card>
           </React.Fragment>
         </MuiThemeProvider>
       );
-    }
+    } 
 }
+const mapDispatchToProps = dispatch => {
+  return {
+    login: authUser => dispatch(login(authUser)),
+    logout: () => dispatch(logout()),
+  }
+}; 
 export default App;
