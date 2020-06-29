@@ -48,7 +48,6 @@ class App extends Component {
   }
 
   render() {
-  
       return (
         <MuiThemeProvider theme={theme}>
           <React.Fragment>
@@ -62,7 +61,7 @@ class App extends Component {
             {/* </AppBar> */}
             {/* <DataTable data={this.state.data} /> */}
             </TopBar>
-            <Card variant='outlined'style={{paddingTop:'50px'}}>
+            <Card style={{paddingTop:'5px'}}>
               <CardContent>
                 {/* system routes */}
                 <Route exact path={urls.login.path} render={(props) => <NavigationLoggedWrapper component={Login} {...props}/>}/>

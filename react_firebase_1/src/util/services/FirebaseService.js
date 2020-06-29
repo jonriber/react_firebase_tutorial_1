@@ -1,6 +1,11 @@
+//This is my central to manage actions on db
+//Components consume some of these methods
+
 import {firebaseDatabase,firebaseAuth} from '../firebaseUtils';
 
+//main class
 class FirebaseService {
+    
     static getDataList = (nodePath,callback, size = 10) => {
         let query = firebaseDatabase.ref(nodePath).limitToLast(size);
 
