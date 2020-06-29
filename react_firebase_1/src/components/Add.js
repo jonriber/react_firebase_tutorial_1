@@ -5,56 +5,100 @@ import {urls} from '../util/urlUtils';
 import {withRouter} from 'react-router-dom';
 
 class Add extends Component{
+
+    state = {id:null, name:'',birthday:'',country:'',school:'',mother:'',email:''};
+
+    componentWillMount = () => {
+        const {id} = this.props.match.params;
+
+        if(!(id === undefined || !id)) {
+            this.setState({id});
+            FirebaseService.getUniqueDataBy('atletas',id,(data) =>
+            this.setState({...data}, () => console.log(this.state)));
+        }
+    };
     submit = (event) => {
         event.preventDefault();
 
-        const {temperatura} = this;
-        const {umidade} = this;
-        const {data} = this;
-        const {cliente} = this;
+        const {name} = this.state;
+        const {birthday} = this.state;
+        const {country} = this.state;
+        const {school} = this.state;
+        const {mother} = this.state;
+        const {email} = this.state;
 
-        const newid = FirebaseService.pushData('leituras',{
-            temperatura,
-            umidade,
-            data,
-            cliente
-        });
+
+        let objToSubmit = {
+            name,
+            birthday,
+            country,
+            school,
+            mother,
+            email
+        };
+
+        if (this.props.match.params.id === undefined) {
+            FirebaseService.pushData('atletas',objToSubmit);
+        } else {
+            FirebaseService.updateData(this.props.match.params.id,'atletas',objToSubmit)
+        }
         this.props.history.push(urls.data.path);
     };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]:event.target.value,
+        });
+    };
+
     render = () =>  (
         <React.Fragment>
-            <Typography variant='headline' component='h2'>Adicionar Novo Dado</Typography>
+            <Typography variant='headline' component='h2'>Register New Athlete</Typography>
             <form onSubmit={this.submit}>
 
                 <TextField className='input-field'
                 type='text'
-                defaultValue={''}
-                label = 'Temperatura'
-                required onChange={e => this.temperatura= e.target.value}/>
+                value={this.state.name}
+                label = 'Name'
+                required onChange={this.handleChange('name')}/>
 
                 <TextField className='input-field'
                 type='text'
-                label='Umidade'
-                defaultValue={''}
+                label='birthday'
+                value={this.state.birthday}
                 required
-                onChange={e => this.umidade = e.target.value}/>
+                onChange={this.handleChange('birthday')}/>
 
                 <TextField className='input-field'
                 type='text'
-                label='Data'
-                defaultValue={''}
+                label='country'
+                value={this.state.country}
                 required
-                onChange={e => this.data = e.target.value}/>
+                onChange={this.handleChange('country')}/>
+
+                <TextField className='input-field'
+                type='text'
+                label='school'
+                value={this.state.school}
+                required
+                onChange={this.handleChange('school')}/>
+
+                <TextField className='input-field'
+                type='text'
+                label='mother'
+                value={this.state.mother}
+                required
+                onChange={this.handleChange('mother')}/>        
 
                 <TextField className = 'input-field'
                 type='email'
-                label='Cliente'
-                defaultValue={''}
+                label='Email'
+                value={this.state.email}
                 required
-                onChange={e => this.cliente = e.target.value}/>
+                onChange={this.handleChange('email')}/>
 
                 <Button type='submit' variant='contained' color= 'primary' style={{marginTop:'20px',}}>
-                    Adicionar
+                    Register
                 </Button>
             </form>
         </React.Fragment>

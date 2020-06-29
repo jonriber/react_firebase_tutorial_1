@@ -10,18 +10,19 @@ import {
   Card,
   Button,
 } from '@material-ui/core'
-import red from "@material-ui/core/colors/red";
+import lightGreen from "@material-ui/core/colors/lightGreen";
 import DataTable  from './DataTable';
 import Welcome from './Welcome';
 import TopBar from './TopBar';
 import Add from './Add';
 import FirebaseService from '../util/services/FirebaseService'
 import { Route } from 'react-router-dom';
-import {urls} from '../util/urlUtils';
+import {urls, privateUrls} from '../util/urlUtils';
+// import { lightGreen } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
-    primary:red,
+    primary:lightGreen,
   },
 });
 
@@ -31,7 +32,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    FirebaseService.getDataList('leituras',(dataReceived) =>
+    FirebaseService.getDataList('atletas',(dataReceived) =>
     this.setState({data: dataReceived}))
   }
   render() {
@@ -54,6 +55,7 @@ class App extends Component {
                 <Route exact path={urls.home.path} render={(props) => <Welcome {...props}/>}/>
                 <Route exact path={urls.data.path} render={(props) => <DataTable {...props} data={this.state.data}/>}/>
                 <Route exact path={urls.add.path} render={(props) => <Add {...props}/>}/>
+                <Route exact path={privateUrls.edit.path} render={(props) => <Add {...props} />}/>
               </CardContent>
             </Card>
           </React.Fragment>

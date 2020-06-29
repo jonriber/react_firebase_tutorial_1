@@ -7,7 +7,7 @@ const Welcome = () => {
     return (
         <React.Fragment>
             <Typography variant="headline" component='h2'>
-                Barra de Navegação do site!
+                Tools
             </Typography>
             {
                 Object.values(urls).map((url,index) => {

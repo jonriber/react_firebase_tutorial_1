@@ -4,3 +4,11 @@
     add: { name:'Add', path:'/add'},
 };
 
+export const privateUrls = {
+    edit: {
+        name: 'Edit',
+        path: '/edit/:id',
+        pathWithoutParam: '/edit/'
+    }
+};
+

@@ -11,7 +11,7 @@ const TopBar = () => <AppBar position='static'>
             <HomeIcon/>
         </IconButton>
         <Typography type='title' color='inherit'>
-            My React with Firebase WebApp
+            Desterro Kids Wep App
         </Typography>
     </Toolbar>
 </AppBar>;
