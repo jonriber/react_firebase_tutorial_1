@@ -18,9 +18,11 @@ import TopBar from './TopBar';
 import Add from './Add';
 import Login from './Login';
 import FirebaseService from '../util/services/FirebaseService'
-import { Route } from 'react-router-dom';
+import { Route,withRouter } from 'react-router-dom';
 import {urls, privateUrls} from '../util/urlUtils';
 import {login,logout} from '../actions/actionCreator';
+import {compose} from 'recompose';
+import {connect} from 'react-redux';
 
 const theme = createMuiTheme({
   palette: {
@@ -79,4 +81,8 @@ const mapDispatchToProps = dispatch => {
     logout: () => dispatch(logout()),
   }
 }; 
-export default App;
+
+export default compose(
+  withRouter,
+  connect(null,mapDispatchToProps)
+)(App);

@@ -1,5 +1,5 @@
 import FirebaseService from '../util/services/FirebaseService';
-import {combineReduers, combineReducers} from 'redux';
+import {combineReducers} from 'redux';
 
 //function userReducer definition with state and actions as parameters
 export function userReducer(state=null,action) {
