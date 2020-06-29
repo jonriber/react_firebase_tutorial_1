@@ -31,7 +31,7 @@ const TopBar = ({userAuth, logout, classes}) =>
         {
             userAuth &&
             <Fragment>
-                <Typography type='title' color='inherit' style={{marginLeft:'20px'}}>
+                <Typography type='title' color='inherit' style={{marginLeft:'1300px'}}>
                     {userAuth.email}
                 </Typography>
                 <IconButton color='inherit' aria-label='Menu' onClick={() => logout()}>

@@ -23,6 +23,8 @@ import {urls, privateUrls} from '../util/urlUtils';
 import {login,logout} from '../actions/actionCreator';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
+import NavigationLoggedWrapper from '../NavigationLoggedWrapper/NavigationLoggedWrapper';
+import NavigationWrapper from '../NavigationWrapper/NavigationWrapper';
 
 const theme = createMuiTheme({
   palette: {
@@ -63,11 +65,12 @@ class App extends Component {
             <Card variant='outlined'style={{paddingTop:'50px'}}>
               <CardContent>
                 {/* system routes */}
-                <Route exact path={urls.home.path} render={(props) => <Welcome {...props}/>}/>
-                <Route exact path={urls.data.path} render={(props) => <DataTable {...props} data={this.state.data}/>}/>
-                <Route exact path={urls.add.path} render={(props) => <Add {...props}/>}/>
-                <Route exact path={privateUrls.edit.path} render={(props) => <Add {...props} />}/>
-                <Route exact path={urls.login.path} render={(props) => <Login {...props}/>}/>
+                <Route exact path={urls.login.path} render={(props) => <NavigationLoggedWrapper component={Login} {...props}/>}/>
+                <Route exact path={urls.home.path} render={(props) => <NavigationWrapper component={Welcome} {...props}/>}/>
+                <Route exact path={urls.data.path} render={(props) => <NavigationWrapper component={DataTable} {...props}
+                 data={this.state.data}/>}/>
+                <Route exact path={urls.add.path} render={(props) => <NavigationWrapper component={Add} {...props}/>}/>
+                <Route exact path={privateUrls.edit.path} render={(props) => <NavigationWrapper component={Add} {...props} />}/>
               </CardContent>
             </Card>
           </React.Fragment>
