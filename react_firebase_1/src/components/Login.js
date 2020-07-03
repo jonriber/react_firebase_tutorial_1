@@ -2,7 +2,7 @@ import React, {Component,Fragment} from 'react';
 import {Button,TextField,Typography} from '@material-ui/core';
 import FirebaseService from '../util/services/FirebaseService';
 import {urls} from '../util/urlUtils';
-import {withRouter} from 'react-router-dom';
+import {withRouter,Link} from 'react-router-dom';
 
 class Login extends Component {
 
@@ -11,22 +11,22 @@ class Login extends Component {
         password:''
     };
 
-    createUser = (event) => {
-        event.preventDefault();
-        const {email} = this.state;
-        const {password} = this.state;
+    // createUser = (event) => {
+    //     event.preventDefault();
+    //     const {email} = this.state;
+    //     const {password} = this.state;
 
-        FirebaseService.createUser(email,password).then(
-            (user) => {
-                this.props.history.push(urls.home.path);
-                console.log(user);
-            }
-        ).catch(
-            (error) => {
-                alert(error.message)
-            }
-        )
-    };
+    //     FirebaseService.createUser(email,password).then(
+    //         (user) => {
+    //             this.props.history.push(urls.home.path);
+    //             console.log(user);
+    //         }
+    //     ).catch(
+    //         (error) => {
+    //             alert(error.message)
+    //         }
+    //     )
+    // };
 
     handleChange = name =>event => {
         this.setState({
@@ -54,7 +54,10 @@ class Login extends Component {
         return(
             <Fragment>
                 <Typography variant='headline' component='h2'>
-                    Login
+                    Welcome! Please Login.
+                </Typography>
+                <Typography>
+                    <p>If you are new and want to register at our website, please <Link to={urls.register.path}>Sign Up here.</Link></p>
                 </Typography>
                 <form onSubmit={this.login}>
                     <TextField className='input-field'
@@ -75,11 +78,15 @@ class Login extends Component {
                         Login
                     </Button>
 
-                    <Button onClick={this.createUser}
-                    style={{marginTop:'20px',
-                display:'inline-block'}}>
-                    New User
-                </Button>
+                    {/* <Button onClick={this.createUser}
+                        style={{marginTop:'20px',
+                        display:'inline-block'}}>
+                        New User
+                    </Button> */}
+                    {/* <Button style={{marginTop:'20px',display:'inline-block'}} component={props => <Link to={urls.register.path} {...props}/>}>
+                        
+                        Create new User.
+                    </Button> */}
                 </form>
             </Fragment>
         )

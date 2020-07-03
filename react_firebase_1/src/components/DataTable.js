@@ -15,6 +15,7 @@ import FirebaseService from '../util/services/FirebaseService';
 import { privateUrls } from '../util/urlUtils';
 import {Link} from 'react-router-dom';
 
+//DataTable props data
 const DataTable = ({data}) => {
 
     const remove = (id) => {
