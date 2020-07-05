@@ -55,6 +55,10 @@ class FirebaseService {
     static createUser = (email,password) => {
         return firebaseAuth.createUserWithEmailAndPassword(email,password);
     };
+
+    static updateData = (id,node,obj) => {
+        return firebaseDatabase.ref(node + '/'+ id).set({...obj});
+    };
     
     static login = (email,password) => {
         return firebaseAuth.signInWithEmailAndPassword(email,password);
